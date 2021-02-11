@@ -10,12 +10,15 @@ import os
 from cumulus_logger import CumulusLogger
 from run_cumulus_task import run_cumulus_task
 
+# todo: Does the stuff that gets logged go to console as well?
 LOGGER = CumulusLogger()
+
 
 class ExtractFilePathsError(Exception):
     """Exception to be raised if any errors occur"""
 
-def task(event, context):    #pylint: disable-msg=unused-argument
+
+def task(event, context):  # pylint: disable-msg=unused-argument
     """
     Task called by the handler to perform the work.
 
@@ -59,6 +62,7 @@ def task(event, context):    #pylint: disable-msg=unused-argument
         raise ExtractFilePathsError(f'KeyError: "{level}[{str(err)}]" is required')
     return result
 
+
 def get_regex_buckets(event):
     """
     Gets a dict of regular expressions and the corresponding archive bucket for files
@@ -99,7 +103,8 @@ def get_regex_buckets(event):
         raise ExtractFilePathsError(f'KeyError: "{level}[{str(err)}]" is required')
     return regex_buckets
 
-def handler(event, context):            #pylint: disable-msg=unused-argument
+
+def handler(event, context):  # pylint: disable-msg=unused-argument
     """Lambda handler. Extracts the key's for a granule from an input dict.
 
         Args:

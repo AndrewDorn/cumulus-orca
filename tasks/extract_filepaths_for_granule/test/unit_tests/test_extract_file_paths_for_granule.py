@@ -4,8 +4,6 @@ Name: test_extract_filepaths_for_granule.py
 Description:  Unit tests for extract_file_paths_for_granule.py.
 """
 import unittest
-from unittest.mock import Mock
-from cumulus_logger import CumulusLogger
 from test.helpers import LambdaContextMock, create_handler_event, create_task_event
 import extract_filepaths_for_granule
 
@@ -17,11 +15,10 @@ class TestExtractFilePaths(unittest.TestCase):
 
     def setUp(self):
         self.context = LambdaContextMock()
-        self.mock_error = CumulusLogger.error
         self.task_input_event = create_task_event()
 
     def tearDown(self):
-        CumulusLogger.error = self.mock_error
+        pass
 
     def test_handler(self):
         """
@@ -103,7 +100,6 @@ class TestExtractFilePaths(unittest.TestCase):
         """
         self.task_input_event['input'].pop('granules', None)
         exp_err = "KeyError: \"event['input']['granules']\" is required"
-        CumulusLogger.error = Mock()
         try:
             extract_filepaths_for_granule.task(self.task_input_event, self.context)
             self.fail("ExtractFilePathsError expected")
@@ -117,7 +113,6 @@ class TestExtractFilePaths(unittest.TestCase):
         self.task_input_event['input']['granules'][0] = {"files": []}
 
         exp_err = "KeyError: \"event['input']['granules'][]['granuleId']\" is required"
-        CumulusLogger.error = Mock()
         try:
             extract_filepaths_for_granule.task(self.task_input_event, self.context)
             self.fail("ExtractFilePathsError expected")
