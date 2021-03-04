@@ -193,3 +193,58 @@ resource "aws_lambda_function" "copy_to_glacier" {
     security_group_ids = [module.lambda_security_group.vpc_postgres_ingress_all_egress_id]
   }
 }
+
+resource "aws_api_request_status_for_granule_gateway_rest_api" "RequestStatusForGranuleAPI" {
+  name        = "RequestStatusForGranuleAPI"
+  description = "This is my API for demonstration purposes"
+}
+
+resource "aws_api_gateway_resource" "RequestStatusForGranuleResource" {
+  rest_api_id = aws_api_gateway_rest_api.RequestStatusForGranuleAPI.id
+  parent_id   = aws_api_gateway_rest_api.RequestStatusForGranuleAPI.root_resource_id
+  path_part   = "RequestStatusForGranule"
+}
+
+resource "aws_api_gateway_method" "RequestStatusForGranuleMethod" {
+  rest_api_id   = aws_api_gateway_rest_api.RequestStatusForGranuleAPI.id
+  resource_id   = aws_api_gateway_resource.RequestStatusForGranuleResource.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "RequestStatusForGranuleIntegration" {
+  rest_api_id          = aws_api_gateway_rest_api.RequestStatusForGranuleAPI.id
+  resource_id          = aws_api_gateway_resource.RequestStatusForGranuleResource.id
+  http_method          = aws_api_gateway_method.RequestStatusForGranuleMethod.http_method
+  type                 = "MOCK"
+  timeout_milliseconds = 29000
+
+  request_parameters = {
+    "integration.request.header.X-Authorization" = "'static'"
+  }
+
+  # Transforms the incoming XML request to JSON
+  request_templates = {
+    "application/xml" = <<EOF
+{
+   "body" : $input.json('$')
+}
+EOF
+  }
+}
+
+resource "aws_lambda_function" "request_status_for_granule_lambda" {
+  filename         = "${path.module}/../../tasks/request_status_for_granule/request_status_for_granule.zip"
+  source_code_hash = filemd5("${path.module}/../../tasks/request_status_for_granule/request_status_for_granule.zip")
+  function_name    = "${var.prefix}_request_status_for_granule"
+  role             = module.request_status_arn.request_status_role_arn
+  handler          = "request_status_for_granule.handler"
+  runtime          = "python3.7"
+  timeout          = var.lambda_timeout
+  description      = "Returns the status of the restore request for the given granule, using most recent if no job ID is given."
+
+  vpc_config {
+    subnet_ids         = var.subnet_ids
+    security_group_ids = [module.lambda_security_group.vpc_postgres_ingress_all_egress_id] todo
+  }
+}

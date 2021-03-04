@@ -117,3 +117,21 @@ resource "aws_iam_role_policy" "restore_object_role_policy" {
   role   = aws_iam_role.restore_object_role.id
   policy = data.aws_iam_policy_document.restore_object_role_policy_document.json
 }
+
+resource "aws_iam_role" "request_status_role" {
+  name                 = "${var.prefix}_request_status_role"
+  assume_role_policy   = data.aws_iam_policy_document.request_status_role.json
+  permissions_boundary = var.permissions_boundary_arn
+}
+
+data "aws_iam_policy_document" "request_status_role_policy_document" {
+  statement {
+    todo
+  }
+}
+
+resource "aws_iam_role_policy" "request_status_role_policy" {
+  name   = "${var.prefix}_request_status_role_policy"
+  role   = aws_iam_role.request_status_role.id
+  policy = data.aws_iam_policy_document.request_status_role_policy_document.json
+}
