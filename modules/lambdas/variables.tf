@@ -81,3 +81,6 @@ variable "profile" {
 }
 variable "tags" {}
 variable "permissions_boundary_arn" {}
+variable "test" {
+  
+}
