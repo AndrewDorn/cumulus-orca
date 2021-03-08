@@ -193,3 +193,38 @@ resource "aws_lambda_function" "copy_to_glacier" {
     security_group_ids = [module.lambda_security_group.vpc_postgres_ingress_all_egress_id]
   }
 }
+
+# ---------------------lambda function for request_status_for_granule------------------------------------------------
+resource "aws_lambda_function" "request_status_for_granule" {
+  filename         = "${path.module}/../../tasks/request_status_for_granule/request_status_for_granule.zip"
+  source_code_hash = filemd5("${path.module}/../../tasks/request_status_for_granule/request_status_for_granule.zip")
+  function_name    = "${var.prefix}_request_status_for_granule"
+  role             = module.restore_object_arn.restore_object_role_arn
+  handler          = "request_status_for_granule.handler"
+  runtime          = "python3.7"
+  timeout          = var.lambda_timeout
+  description      = "add description"
+
+  vpc_config {
+    subnet_ids         = var.subnet_ids
+    security_group_ids = [module.lambda_security_group.vpc_postgres_ingress_all_egress_id]
+  }
+}
+
+
+# ---------------------lambda function for request_status_for_job------------------------------------------------
+resource "aws_lambda_function" "request_status_for_job" {
+  filename         = "${path.module}/../../tasks/request_status_for_job/request_status_for_job.zip"
+  source_code_hash = filemd5("${path.module}/../../tasks/request_status_for_job/request_status_for_job.zip")
+  function_name    = "${var.prefix}_request_status_for_job"
+  role             = module.restore_object_arn.restore_object_role_arn
+  handler          = "request_status_for_job.handler"
+  runtime          = "python3.7"
+  timeout          = var.lambda_timeout
+  description      = "add description"
+
+  vpc_config {
+    subnet_ids         = var.subnet_ids
+    security_group_ids = [module.lambda_security_group.vpc_postgres_ingress_all_egress_id]
+  }
+}
