@@ -216,7 +216,7 @@ resource "aws_api_gateway_integration" "RequestStatusForGranuleIntegration" {
   rest_api_id          = aws_api_gateway_rest_api.RequestStatusForGranuleAPI.id
   resource_id          = aws_api_gateway_resource.RequestStatusForGranuleResource.id
   http_method          = aws_api_gateway_method.RequestStatusForGranuleMethod.http_method
-  type                 = "MOCK"
+  type                 = "HTTPS"
   timeout_milliseconds = 29000
 
   request_parameters = {
