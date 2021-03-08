@@ -245,6 +245,6 @@ resource "aws_lambda_function" "request_status_for_granule_lambda" {
 
   vpc_config {
     subnet_ids         = var.subnet_ids
-    security_group_ids = [module.lambda_security_group.vpc_postgres_ingress_all_egress_id] todo
+    security_group_ids = [module.lambda_security_group.vpc_postgres_ingress_all_egress_id]
   }
 }
