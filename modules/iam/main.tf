@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "assume_lambda_role" {
 resource "aws_iam_role" "restore_object_role" {
   name                 = "${var.prefix}_restore_object_role"
   assume_role_policy   = data.aws_iam_policy_document.assume_lambda_role.json
-  permissions_boundary = var.permissions_boundary_arn
+  # permissions_boundary = var.permissions_boundary_arn
 }
 
 data "aws_iam_policy_document" "restore_object_role_policy_document" {
@@ -62,11 +62,12 @@ data "aws_iam_policy_document" "restore_object_role_policy_document" {
       "s3:PutBucket"
     ]
     resources = [
-      "arn:aws:s3:::${var.buckets["glacier"]["name"]}",
-      "arn:aws:s3:::${var.buckets["public"]["name"]}",
-      "arn:aws:s3:::${var.buckets["private"]["name"]}",
-      "arn:aws:s3:::${var.buckets["internal"]["name"]}",
-      "arn:aws:s3:::${var.buckets["protected"]["name"]}"
+      # "arn:aws:s3:::${var.buckets["glacier"]["name"]}",
+      # "arn:aws:s3:::${var.buckets["public"]["name"]}",
+      # "arn:aws:s3:::${var.buckets["private"]["name"]}",
+      # "arn:aws:s3:::${var.buckets["internal"]["name"]}",
+      # "arn:aws:s3:::${var.buckets["protected"]["name"]}"
+      "*"
     ]
   }
   statement {
@@ -79,11 +80,12 @@ data "aws_iam_policy_document" "restore_object_role_policy_document" {
       "s3:DeleteObjectVersion"
     ]
     resources = [
-      "arn:aws:s3:::${var.buckets["glacier"]["name"]}/*",
-      "arn:aws:s3:::${var.buckets["public"]["name"]}/*",
-      "arn:aws:s3:::${var.buckets["private"]["name"]}/*",
-      "arn:aws:s3:::${var.buckets["internal"]["name"]}/*",
-      "arn:aws:s3:::${var.buckets["protected"]["name"]}/*"
+      # "arn:aws:s3:::${var.buckets["glacier"]["name"]}/*",
+      # "arn:aws:s3:::${var.buckets["public"]["name"]}/*",
+      # "arn:aws:s3:::${var.buckets["private"]["name"]}/*",
+      # "arn:aws:s3:::${var.buckets["internal"]["name"]}/*",
+      # "arn:aws:s3:::${var.buckets["protected"]["name"]}/*"
+      "*"
     ]
   }
   statement {
@@ -92,8 +94,9 @@ data "aws_iam_policy_document" "restore_object_role_policy_document" {
       "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::${var.buckets["glacier"]["name"]}",
-      "arn:aws:s3:::${var.buckets["glacier"]["name"]}/*"
+      # "arn:aws:s3:::${var.buckets["glacier"]["name"]}",
+      # "arn:aws:s3:::${var.buckets["glacier"]["name"]}/*"
+      "*"
     ]
   }
   statement {

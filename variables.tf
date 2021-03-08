@@ -3,42 +3,42 @@ variable "prefix" {
 }
 
 
-variable "vpc_id" {
-  default = ""
-}
+# variable "vpc_id" {
+#   default = ""
+# }
 
-//
-variable "restore_complete_filter_prefix" {
-  default = ""
-}
+# //
+# variable "restore_complete_filter_prefix" {
+#   default = ""
+# }
 
-variable "private_bucket" {
-  default = ""
-}
+# variable "private_bucket" {
+#   default = ""
+# }
 
-variable "protected_bucket" {
-  default = ""
-}
+# variable "protected_bucket" {
+#   default = ""
+# }
 
-variable "internal_bucket" {
-  default = ""
-}
+# variable "internal_bucket" {
+#   default = ""
+# }
 
-variable "public_bucket" {
-  default = ""
-}
+# variable "public_bucket" {
+#   default = ""
+# }
 
-variable "permissions_boundary_arn" {
-  default = ""
-}
+# variable "permissions_boundary_arn" {
+#   default = ""
+# }
 
-variable "subnet_ids" {
-  default = []
-}
+# variable "subnet_ids" {
+#   default = []
+# }
 
-variable "ngap_sgs" {
-  default = []
-}
+# variable "ngap_sgs" {
+#   default = []
+# }
 
 variable "profile" {
   default = "default"
@@ -76,7 +76,9 @@ variable "database_port" {
   default = "5432"
 }
 
-variable "database_user_pw" {}
+# # variable "database_user_pw" {
+# #   default = 1234 #replace with yours
+# # }
 
 variable "database_name" {
   default = "disaster_recovery"
@@ -86,17 +88,17 @@ variable "database_app_user" {
   default = "druser"
 }
 
-variable "database_app_user_pw" {}
+# # variable "database_app_user_pw" {}
 
 
 variable "ddl_dir" {
   default = "ddl/"
   description = "Must have trailing /"
 }
-variable "drop_database" {
-  //TODO Maybe this needs to be a boolean false?
-  default = "False"
-}
+# variable "drop_database" {
+#   //TODO Maybe this needs to be a boolean false?
+#   default = "False"
+# }
 
 variable "platform" {
   default = "AWS"
@@ -115,11 +117,11 @@ variable "default_tags" {
   }
 }
 
-variable "buckets" {
-  type    = map(object({ name = string, type = string }))
-}
+# # variable "buckets" {
+# #   type    = map(object({ name = string, type = string }))
+# # }
 
-variable "workflow_config" {
-  # https://github.com/nasa/cumulus/blob/master/tf-modules/workflow/variables.tf#L23
-  # Used in modules/workflows/main.tf
-}
+# # variable "workflow_config" {
+# #   # https://github.com/nasa/cumulus/blob/master/tf-modules/workflow/variables.tf#L23
+# #   # Used in modules/workflows/main.tf
+# # }

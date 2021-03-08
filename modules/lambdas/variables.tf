@@ -4,7 +4,7 @@ variable "prefix" {
 }
 
 
-variable "subnet_ids" {}
+# variable "subnet_ids" {}
 
 
 
@@ -17,7 +17,7 @@ variable "database_name" {
   default = "orca"
 }
 
-variable "database_app_user" {}
+# variable "database_app_user" {}
 
 
 variable "ddl_dir" {
@@ -34,9 +34,9 @@ variable "platform" {
   default = "AWS"
 }
 
-variable "buckets" {
-  type    = map(object({ name = string, type = string }))
-}
+# variable "buckets" {
+#   type    = map(object({ name = string, type = string }))
+# }
 
 
 variable "restore_expire_days" {
@@ -65,9 +65,9 @@ variable "copy_retry_sleep_secs" {
 }
 
 
-variable "vpc_id" {
-  type = string
-}
+# variable "vpc_id" {
+#   type = string
+# }
 
 variable "lambda_timeout" {
   type = number
@@ -79,8 +79,8 @@ variable "restore_complete_filter_prefix" {
 variable "profile" {
   default = "default"
 }
-variable "tags" {}
-variable "permissions_boundary_arn" {}
-variable "test" {
+# variable "tags" {}
+# variable "permissions_boundary_arn" {}
+# variable "test" {
   
-}
+# }
