@@ -1,6 +1,6 @@
 resource "aws_security_group" "vpc-postgres-ingress-all-egress" {
   name   = "${var.prefix}-vpc-ingress-all-egress"
-  vpc_id = var.vpc_id
+  # vpc_id = var.vpc_id
 
   ingress {
     from_port = var.egress_from_port
