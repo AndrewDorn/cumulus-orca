@@ -7,5 +7,6 @@ setup(
     author="lpdaac",
     author_email="lpdaac@usgs.gov",
     url='https://lpdaac.usgs.gov/',
-    py_modules=['database', 'db_config']
+    py_modules=['database', 'db_config'],
+    install_requires=['psycopg2']
 )
