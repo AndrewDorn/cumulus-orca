@@ -131,7 +131,7 @@ cd ../../
 
 
 failure=0
-for TASK in $(ls -d tasks/* | grep request_status_)
+for TASK in $(ls -d tasks/* | egrep "request_status_|post_")
 do
   echo "Building ${TASK}"
   cd ${TASK}
